@@ -129,7 +129,6 @@
     padding: var(--spacing-gutter-medium);
 }
 
-
 .recipe-author {
     padding: 0 var(--spacing-gutter-medium);
 }
@@ -194,15 +193,25 @@
 
 .main-content-list .recipe-card{
     max-width: 64rem;
+    height: fit-content;
 }
 
+.recipe-img{
+    
+}
+
+.preparation-steps{
+    padding: var(--spacing-gutter-medium)
+}
 
 .main-content-detail .recipe-card{
     width: 100rem;
     margin: 0 auto;
+    height: fit-content;
 }
 
 .main-content-detail .recipe-card{
     transform: scale(1);
     box-shadow: -5px 5px 15px rgba(0,0,0,.2);
+    height: fit-content;
 }
