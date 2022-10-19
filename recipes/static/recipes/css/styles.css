@@ -234,3 +234,19 @@
     margin: 1rem;
     padding: 0 1rem;    
 }
+
+
+ /* Generic css classes */
+
+.center{
+    align-items: center;
+}
+
+.m-x{
+    margin: var(--spacing-gutter-medium);
+
+}
+
+.m-y{
+    margin: var(--spacing-gutter-medium) 0;
+}
