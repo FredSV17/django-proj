@@ -60,6 +60,20 @@ class RecipeViewsTest(TestRecipeBase):
 
     # TEST CATEGORY PAGE
 
+    def test_recipe_category_view_omits_recipe_if_not_published(self):
+        """
+            Test if recipes that are not published don't appear
+        """
+
+        # Create recipe that is not published
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': recipe.category.id}))
+
+        # Should not appear
+        self.assertEqual(response.status_code, 404)
+
     def test_recipe_category_views_function_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
         self.assertIs(view.func, views.category)
@@ -73,6 +87,20 @@ class RecipeViewsTest(TestRecipeBase):
     def test_recipe_detail_views_returns_status_code_404_NOT_FOUND(self):
         response = self.client.get(
             reverse('recipes:recipe', kwargs={'id': 1000}))
+        self.assertEqual(response.status_code, 404)
+
+    def test_recipe_detail_view_omits_recipe_if_not_published(self):
+        """
+            Test if recipes that are not published don't appear
+        """
+
+        # Create recipe that is not published
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': recipe.id}))
+
+        # Should not appear
         self.assertEqual(response.status_code, 404)
 
     def test_recipe_detail_views_function_is_correct(self):

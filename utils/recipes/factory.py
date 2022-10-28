@@ -12,7 +12,7 @@ fake = Faker('pt_BR')
 # print(signature(fake.random_number))
 
 
-def make_recipe():
+def make_random_recipe():
     return {
         'id': fake.random_number(digits=2, fix_len=True),
         'title': fake.sentence(nb_words=6),
