@@ -250,3 +250,29 @@
 .m-y{
     margin: var(--spacing-gutter-medium) 0;
 }
+
+.pagination-content{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    gap: 1rem 2rem;
+}
+
+.pagination .page-item{
+    color: var(--color-gray-6);
+    background-color: var(--color-gray-1);
+    border-radius: 0.5rem;
+    padding: .5rem 1.5rem;
+}
+
+.pagination .page-link{
+    text-decoration: none;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+
+
+.pagination .page-link:hover{
+    filter: brightness(60%);
+
+}

@@ -1,5 +1,27 @@
 {% if recipes.has_other_pages %}
 <div class="container pagination">
-    1 2 3 4 5
+    <div class="pagination-content">
+
+    {% if pages.first_page_oor %}
+        <a href="?page=1{{ additional_query }}" class="page-link page-item">
+            1
+        </a>
+        <span class="page-item">...</span>
+    {% endif %}
+
+
+    {% for page in pages.pagination %}
+        <a href="?page={{ page }}{{ additional_query }}" class="page-link page-item">
+            {{ page }}
+        </a>
+    {% endfor %}
+
+    {% if pages.last_page_oor %}
+        <span class="page-item">...</span>
+        <a href="?page={{ pages.total_pages }}{{ additional_query }}" class="page-link page-item">
+            {{ pages.total_pages }}
+        </a>
+    {% endif %}
+    </div>
 </div>
 {% endif %}

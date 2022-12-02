@@ -1,7 +1,8 @@
-from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
+
+from utils.pagination.pagination import make_paginator
 
 from .models import Recipe
 
@@ -11,16 +12,10 @@ def home(request):
     recipes = Recipe.objects.filter(is_published=True,).order_by('-id')
     # get_list_or_404(Recipe.objects.filter(
     #    is_published=True,).order_by('-id'),)
-    curr_page = request.GET.get('page', '1')
-
-    if not curr_page.isnumeric():
-        raise Http404()
-
-    paginator = Paginator(recipes, 10)
-    page_obj = paginator.get_page(int(curr_page))
-
+    page_obj, pagination_range = make_paginator(request, recipes)
     return render(request, 'recipes/pages/home.html', context={
-        'recipes': page_obj
+        'recipes': page_obj,
+        'pages': pagination_range
     })
 
 
@@ -38,17 +33,24 @@ def search(request):
         is_published=True
     ).order_by('-id')
 
+    page_obj, pagination_range = make_paginator(request, recipes)
+
     return render(request, 'recipes/pages/search.html', context={
         'page_title': f'"{search_query}" search ',
-        'recipes': recipes
+        'pages': pagination_range,
+        'recipes': page_obj,
+        'additional_query': f'&q={search_query}'
     })
 
 
 def category(request, category_id):
     recipes = get_list_or_404(Recipe.objects.filter(
         is_published=True, category__id=category_id).order_by('-id'),)
+
+    page_obj, pagination_range = make_paginator(request, recipes)
     return render(request, 'recipes/pages/category.html', context={
-        'recipes': recipes,
+        'recipes': page_obj,
+        'pages': pagination_range,
         'title': f'{recipes[0].category.name}  - Category |'
     })
 
